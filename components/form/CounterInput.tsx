@@ -1,17 +1,20 @@
 "use client";
 import { Card, CardHeader } from "@/components/ui/card";
 import { LuMinus, LuPlus } from "react-icons/lu";
-
 import { Button } from "../ui/button";
 import { useState } from "react";
+import Flag from "react-world-flags";
 
-function CounterInput({
-  detail,
-  defaultValue,
-}: {
+interface CountryInputProps {
+  item?: {
+    // Mark as optional to handle undefined
+    code: string;
+  };
   detail: string;
   defaultValue?: number;
-}) {
+}
+
+function CountriesInput({ item, detail, defaultValue }: CountryInputProps) {
   const [count, setCount] = useState(defaultValue || 0);
 
   const increaseCount = () => {
@@ -29,7 +32,6 @@ function CounterInput({
 
   return (
     <Card className="mb-4">
-      {/* input */}
       <input type="hidden" name={detail} value={count} />
       <CardHeader className="flex flex-col gap-y-5">
         <div className="flex items-center justify-between flex-wrap">
@@ -40,6 +42,12 @@ function CounterInput({
             </p>
           </div>
           <div className="flex items-center gap-4">
+            {/* Check if item exists and has a code before rendering the flag */}
+            {item && item.code ? (
+              <Flag code={item.code} style={{ width: 20, height: 20 }} />
+            ) : (
+              <span>No flag available</span> // Fallback UI if no item
+            )}
             <Button
               variant="outline"
               size="icon"
@@ -63,4 +71,5 @@ function CounterInput({
     </Card>
   );
 }
-export default CounterInput;
+
+export default CountriesInput;

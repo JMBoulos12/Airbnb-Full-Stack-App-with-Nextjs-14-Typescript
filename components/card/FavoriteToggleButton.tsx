@@ -3,11 +3,9 @@ import { Button } from "../ui/button";
 
 function FavoriteToggleButton({ propertyId }: { propertyId: string }) {
   return (
-    <Button
-      size="icon"
-      variant="outline"
-      className="p-2 cursor-pointer"
-    ></Button>
+    <Button size="icon" variant="outline" className="p-2 cursor-pointer">
+      <FaHeart />
+    </Button>
   );
 }
 export default FavoriteToggleButton;
