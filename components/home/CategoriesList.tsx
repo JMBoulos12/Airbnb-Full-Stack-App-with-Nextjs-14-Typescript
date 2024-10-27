@@ -19,7 +19,7 @@ function CategoriesList({
             return (
               <Link
                 key={item.label}
-                href={"/?category=${item.label}${searchTerm}"}
+                href={`/?category=${item.label}${searchTerm}`}
               >
                 <article
                   className={`p-3 flex flex-col items-center cursor-pointer duration-300 hover:text-primary w-[100px] ${
