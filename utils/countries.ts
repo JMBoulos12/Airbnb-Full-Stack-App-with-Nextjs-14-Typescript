@@ -5,7 +5,7 @@ export const formatCountries = countries.map((item) => {
     code: item.cca2,
     name: item.name.common,
     flag: item.flag,
-    location: item.altSpellings,
+    location: item.latlng,
     region: item.region,
   };
 });
