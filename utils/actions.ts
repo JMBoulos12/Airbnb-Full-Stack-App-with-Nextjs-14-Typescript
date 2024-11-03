@@ -12,6 +12,7 @@ import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { uplodImage } from "./supabase";
+import { count } from "console";
 
 const getAuthUser = async () => {
   const user = await currentUser();
@@ -331,6 +332,7 @@ export const fetchPropertyReviewsByUser = async () => {
       },
     },
   });
+  return reviews;
 };
 
 export const deleteReviewAction = async (prevState: { reviewId: string }) => {
@@ -348,4 +350,35 @@ export const deleteReviewAction = async (prevState: { reviewId: string }) => {
   } catch (error) {
     return renderError(error);
   }
+};
+
+export async function fetchPropertyRating(propertyId: string) {
+  const result = await db.review.groupBy({
+    by: ["propertyId"],
+    _avg: {
+      rating: true,
+    },
+    _count: {
+      rating: true,
+    },
+    where: {
+      propertyId,
+    },
+  });
+  return {
+    rating: result[0]?._avg.rating?.toFixed() ?? 0,
+    count: result[0]?._count.rating ?? 0,
+  };
+}
+
+export const findExistingReview = async (
+  userId: string,
+  propertyId: string
+) => {
+  return db.review.findFirst({
+    where: {
+      profileId: userId,
+      propertyId,
+    },
+  });
 };
