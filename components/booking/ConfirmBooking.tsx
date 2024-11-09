@@ -1,7 +1,7 @@
 "use client";
 
 import { useProperty } from "@/utils/store";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import FormContainer from "../form/FormContainer";
 import { SubmitButton } from "../form/Buttons";
@@ -29,9 +29,12 @@ function ConfirmBooking() {
   return (
     <section>
       <FormContainer action={createBooking}>
-        <SubmitButton text="Reserve" className="w-full" />
+        <SubmitButton text="Reserve" className="w-full" size="lg" />
       </FormContainer>
     </section>
   );
 }
 export default ConfirmBooking;
+/* function useAuth(): { userId: any } {
+  throw new Error("Function not implemented.");
+} */
