@@ -552,7 +552,7 @@ export const updatePropertyAction = async (
         ...validatedFields,
       },
     });
-    revalidatePath("/rentals/${propertyId)/edit");
+    revalidatePath(`/rentals/${propertyId}/edit`);
     return { message: "Update Successful" };
   } catch (error) {
     return renderError(error);
@@ -585,4 +585,30 @@ export const updatePropertyImageAction = async (
   } catch (error) {
     return renderError(error);
   }
+};
+
+export const fetchReservations = async () => {
+  const user = await getAuthUser();
+
+  const reservations = await db.booking.findMany({
+    where: {
+      property: {
+        profileId: user.id,
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      property: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          country: true,
+        },
+      },
+    },
+  });
+  return reservations;
 };

@@ -49,7 +49,7 @@ async function EditRentalPage({ params }: { params: { id: string } }) {
             />
             <PriceInput defaultValue={property.price} />
             <CategoriesInput defaultValue={property.category} />
-            <CategoriesInput defaultValue={property.country} />
+            <CountriesInput defaultValue={property.country} />
           </div>
           <TextAreaInput
             name="description"
