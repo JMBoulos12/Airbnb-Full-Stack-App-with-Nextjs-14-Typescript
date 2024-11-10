@@ -4,8 +4,15 @@ import { amenities, Amenity } from "@/utils/amenities";
 import { Checkbox } from "@/components/ui/checkbox";
 
 function AmenitiesInput({ defaultValue }: { defaultValue?: Amenity[] }) {
+  const amenitiesWithIcons = defaultValue?.map(({ name, selected }) => {
+    return {
+      name,
+      selected,
+      icon: amenities.find((amenity) => amenity.name === name)!.icon,
+    };
+  });
   const [selectedAmenities, setSelectedAmenities] = useState<Amenity[]>(
-    defaultValue || amenities
+    amenitiesWithIcons || amenities
   );
 
   const handleChange = (amenity: Amenity) => {
@@ -38,7 +45,7 @@ function AmenitiesInput({ defaultValue }: { defaultValue?: Amenity[] }) {
               htmlFor={amenity.name}
               className="text-sm font-medium leading-none capitalize flex gap-x-2 items-center"
             >
-              {amenity.name} <amenity.icon className="w-4 h-4" />
+              {amenity.name}
             </label>
           </div>
         ))}
