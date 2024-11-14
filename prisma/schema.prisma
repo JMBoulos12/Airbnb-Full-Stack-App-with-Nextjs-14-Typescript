@@ -85,7 +85,7 @@ model Booking {
   totalNights    Int
   checkIn   DateTime
   checkOut  DateTime
-  paymentStatus Boolean @default(false)
+  paymentStatus Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
